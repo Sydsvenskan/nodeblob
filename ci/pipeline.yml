@@ -1,0 +1,26 @@
+jobs:
+  - name: build
+    serial: true
+    plan:
+      - get: sources
+        trigger: true
+      - task: compile
+        file: sources/ci/compile.yml
+      - put: image
+        params:
+          build: compiled
+
+resources:
+  - name: sources
+    type: git
+    source:
+      uri: git@github.com:Sydsvenskan/nodeblob.git
+      branch: master
+      private_key: {{github_deploy_key}}
+  - name: image
+    type: docker-image
+    source:
+      email: {{docker_email}}
+      username: {{docker_user}}
+      password: {{docker_password}}
+      repository: hdsydsvenskan/nodeblob
