@@ -8,7 +8,9 @@ jobs:
         file: sources/ci/compile.yml
       - put: image
         params:
+          tag: compiled/image_version
           build: compiled
+          tag_as_latest: true
 
 resources:
   - name: sources

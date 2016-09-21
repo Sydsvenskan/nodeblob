@@ -26,3 +26,6 @@ run:
 
       go build -o compiled/bin/nodeblob $PACKAGE
       cp ${PACKAGE_PATH}/Dockerfile compiled/
+
+      # Get the image tag from the base image tag in the Dockerfile
+      head -n 1 compiled/Dockerfile | cut -d ":" -f 2 > compiled/image_version
