@@ -1,4 +1,4 @@
-FROM node:6.6
+FROM node:6.9.1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	jq \

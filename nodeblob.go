@@ -11,6 +11,7 @@ import (
 	"path"
 	"runtime"
 	"sort"
+	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -95,6 +96,8 @@ func process(opt options) error {
 	if err := decoder.Decode(&pkg); err != nil {
 		return errors.Wrap(err, "failed to decode package file")
 	}
+	// Get rid of slashes (namespacing) in package name.
+	pkg.Name = strings.Replace(pkg.Name, "/", "__", 0)
 
 	archiveName := fmt.Sprintf(
 		"%s-%s-%s-%s.tar.gz",
